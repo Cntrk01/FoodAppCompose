@@ -5,64 +5,94 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.example.foodappwithcompose.model.CategoryResponse
+import com.example.foodappwithcompose.model.MealName
 import com.example.foodappwithcompose.model.MealNameResponse
 
 @Composable
-fun HomeSuccessComponent(randomMeal:MealNameResponse,searchMeal:MealNameResponse,category:CategoryResponse){
+fun HomeSuccessComponent(
+    randomMeal: MealNameResponse,
+    searchMeal: MealNameResponse,
+    category: CategoryResponse
+) {
     Column(
-        modifier = Modifier
-            .fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
+        Column(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            MealColumn(randomMeal.meals,Modifier)
+        }
 
-        Column(
+        Column(modifier = Modifier.fillMaxWidth().weight(1f)) {
+            MealColumn(searchMeal.meals,Modifier)
+        }
+        //Recyclerview eklicem
+    }
+
+}
+@Composable
+fun MealColumn(meals: List<MealName>, modifier: Modifier) {
+    Column(
+        modifier = modifier.fillMaxSize()
+    ) {
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
+                .padding(10.dp)
                 .weight(1f),
+            shape = RoundedCornerShape(20.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
         ) {
-            randomMeal.meals.let {
-                it.map {randomMeal->
-                    if (randomMeal.strMealThumb?.isNotEmpty() == true) {
+            if (meals.isNotEmpty()) {
+                meals.map {
+                    Box(modifier = Modifier.fillMaxSize()) {
                         AsyncImage(
-                            model = randomMeal.strMealThumb,
+                            model = it.strMealThumb,
                             contentDescription = "thumbnail",
                             contentScale = ContentScale.Crop,
-                            modifier = Modifier
-                                .padding(10.dp)
-                                .fillMaxWidth()
-                                .clip(RoundedCornerShape(20.dp))
+                            modifier = Modifier.fillMaxWidth()
                         )
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(
+                                    Brush.verticalGradient(
+                                        colors = listOf(Color.Transparent, Color.Black),
+                                        startY = 400f
+                                    )
+                                )
+                        )
+
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .padding(16.dp),
+                            contentAlignment = Alignment.BottomStart
+                        ) {
+                            Text(
+                                text = it.strMeal.toString(),
+                                style = androidx.compose.ui.text.TextStyle(
+                                    color = Color.White,
+                                    fontSize = 16.sp
+                                )
+                            )
+                        }
                     }
                 }
             }
-
-        }
-
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-        ) {
-
-        }
-
-        // Üçüncü tasarım
-        Column(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
-        ) {
-            // Üçüncü tasarımın içeriği
         }
     }
 }
