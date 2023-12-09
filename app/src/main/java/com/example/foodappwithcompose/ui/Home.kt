@@ -10,8 +10,10 @@ import com.example.foodappwithcompose.intent.HomeIntent
 import com.example.foodappwithcompose.state.HomeMealState
 import com.example.foodappwithcompose.viewmodel.HomeViewModel
 
+
 @Composable
 fun Home(homeViewModel: HomeViewModel){
+
     val state by homeViewModel.state
 
     when(state){
