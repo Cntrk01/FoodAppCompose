@@ -8,12 +8,12 @@ plugins {
 
 android {
     namespace = "com.example.foodappwithcompose"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.foodappwithcompose"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -70,10 +70,13 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-tooling")
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
+    implementation ("androidx.navigation:navigation-compose:2.6.0-rc01")
+
     implementation("io.ktor:ktor-client-cio-jvm:2.3.2")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.2")
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.2")
     implementation("com.google.code.gson:gson:2.8.9")
+
     implementation("io.coil-kt:coil-compose:2.4.0")
 
     implementation ("com.google.dagger:hilt-android:2.44")
