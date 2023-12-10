@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class MealName(
+data class MealDetail(
     @SerializedName("dateModified")
     val dateModified: String?,
     @SerializedName("idMeal")
