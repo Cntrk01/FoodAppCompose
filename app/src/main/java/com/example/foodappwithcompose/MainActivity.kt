@@ -3,44 +3,36 @@ package com.example.foodappwithcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.activity.viewModels
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.remember
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.example.foodappwithcompose.model.MealDetail
+import com.example.foodappwithcompose.ui.Home
+import com.example.foodappwithcompose.ui.MealDetail
 import com.example.foodappwithcompose.ui.theme.FoodAppWithComposeTheme
+import com.example.foodappwithcompose.viewmodel.HomeViewModel
+import com.google.gson.Gson
 
 class MainActivity : ComponentActivity() {
+    private val viewModel : HomeViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
             FoodAppWithComposeTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
-                ) {
-                    Greeting("Android")
-                }
+                val navController= rememberNavController()
+                SetupNavGraph(navController = navController)
             }
         }
     }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    FoodAppWithComposeTheme {
-        Greeting("Android")
-    }
+//    fun <A> String.fromJson(type: Class<A>): A {
+//        return Gson().fromJson(this, type)
+//    }
+//    fun <A> A.toJson(): String? {
+//        return Gson().toJson(this)
+//    }
 }
