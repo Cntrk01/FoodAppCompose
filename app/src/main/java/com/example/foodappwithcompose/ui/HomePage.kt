@@ -3,9 +3,7 @@ package com.example.foodappwithcompose.ui
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.component.home.HomeErrorComponent
 import com.example.foodappwithcompose.component.home.HomeLoadingComponent
@@ -15,8 +13,9 @@ import com.example.foodappwithcompose.state.HomeMealState
 import com.example.foodappwithcompose.viewmodel.HomeViewModel
 
 @Composable
-fun Home(navController: NavHostController){
+fun HomePage(navController: NavHostController){
     val homeViewModel : HomeViewModel = viewModel()
+    var firstTimeCheck=true
     val state by homeViewModel.state
 
     when(state){
@@ -25,6 +24,7 @@ fun Home(navController: NavHostController){
             val randomMeal=(state as HomeMealState.Success).randomMeal
             val searchMeal=(state as HomeMealState.Success).searchMeal
             val category=(state as HomeMealState.Success).category
+            firstTimeCheck=(state as HomeMealState.Success).firstTimeRun
             HomeSuccessComponent(randomMeal,searchMeal,category,navController)
         }
         is HomeMealState.Error->{
@@ -34,7 +34,10 @@ fun Home(navController: NavHostController){
             })
         }
     }
-    LaunchedEffect(Unit){
-        homeViewModel.processIntent(HomeIntent.Loading)
+    if (firstTimeCheck){
+        LaunchedEffect(Unit){
+            homeViewModel.processIntent(HomeIntent.Loading)
+        }
     }
+
 }

@@ -8,7 +8,8 @@ sealed class HomeMealState {
     data class Success(
         val randomMeal: MealDetailResponse,
         val searchMeal: MealDetailResponse,
-        val category: CategoryResponse
+        val category: CategoryResponse,
+        val firstTimeRun : Boolean
     ) : HomeMealState()
 
     data class Error(val error: String) : HomeMealState()

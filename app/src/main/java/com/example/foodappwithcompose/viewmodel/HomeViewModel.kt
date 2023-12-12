@@ -14,8 +14,7 @@ class HomeViewModel : ViewModel() {
 //    private val  _state = MutableStateFlow(HomeRandomVSearchMealState.Loading)
 //    val state : StateFlow<HomeRandomVSearchMealState> =_state  bunda loading verdiğinde asagıda tekrar succes veremiyorum.fakat mutable da verebiliyorum
 
-    private val _state =
-        mutableStateOf<HomeMealState>(HomeMealState.Loading)
+    private val _state = mutableStateOf<HomeMealState>(HomeMealState.Loading)
     val state: State<HomeMealState> = _state
 
     fun processIntent(intent: HomeIntent) {
@@ -30,7 +29,8 @@ class HomeViewModel : ViewModel() {
             _state.value = HomeMealState.Success(
                 MealApiClient.getRandomMeal(),
                 MealApiClient.searchMeal("beef"),
-                MealApiClient.getMealCategory()
+                MealApiClient.getMealCategory(),
+                false
             )
         } catch (e: Exception) {
             _state.value = HomeMealState.Error("Error")
