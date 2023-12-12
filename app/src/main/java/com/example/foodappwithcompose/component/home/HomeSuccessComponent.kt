@@ -10,6 +10,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.customlayouts.AppBar
 import com.example.foodappwithcompose.customlayouts.CategoryItemRowLayout
 import com.example.foodappwithcompose.customlayouts.MealItemRowLayout
@@ -23,39 +25,41 @@ fun HomeSuccessComponent(
     randomMeal: MealDetailResponse,
     searchMeal: MealDetailResponse,
     category: CategoryResponse,
-    mealClick: ((List<MealDetail>) -> Unit)? = null,
+    navHostController: NavHostController
 ) {
-            Column(
+    Column(
+        modifier = Modifier.fillMaxSize()
+    ) {
+        AppBar(text = "Home Page")
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            MealItemRowLayout(randomMeal.meals, Modifier, navHostController = navHostController)
+        }
+
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            MealItemRowLayout(searchMeal.meals, Modifier, navHostController = navHostController)
+        }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .weight(1f)
+        ) {
+            LazyRow(
+                horizontalArrangement = Arrangement.spacedBy(20.dp),
                 modifier = Modifier.fillMaxSize()
             ) {
-                AppBar(text = "Home Page")
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    MealItemRowLayout(randomMeal.meals, Modifier,mealClick)
+                items(category.categories) {
+                    CategoryItemRowLayout(categoriesItem = it)
                 }
-
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    MealItemRowLayout(searchMeal.meals, Modifier,mealClick)
-                }
-                Column(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .weight(1f)
-                ) {
-                    LazyRow(horizontalArrangement = Arrangement.spacedBy(20.dp),
-                        modifier = Modifier.fillMaxSize()) {
-                        items(category.categories){
-                            CategoryItemRowLayout(categoriesItem = it)
-                        }
-                    }
-                }
+            }
         }
+    }
 }

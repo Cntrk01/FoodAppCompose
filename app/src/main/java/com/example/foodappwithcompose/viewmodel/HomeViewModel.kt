@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.foodappwithcompose.intent.HomeIntent
 import com.example.foodappwithcompose.network.MealApiClient
 import com.example.foodappwithcompose.state.HomeMealState
+import io.ktor.client.network.sockets.ConnectTimeoutException
 import kotlinx.coroutines.launch
 
 class HomeViewModel : ViewModel() {
@@ -32,7 +33,11 @@ class HomeViewModel : ViewModel() {
                 MealApiClient.getMealCategory()
             )
         } catch (e: Exception) {
-            _state.value = HomeMealState.Error(e.toString())
+            _state.value = HomeMealState.Error("Error")
+        } catch (e:InternalError){
+            _state.value= HomeMealState.Error("Internet Connection Error")
+        } catch (e:ConnectTimeoutException){
+            _state.value= HomeMealState.Error("Connect Timeout Error")
         }
     }
 }

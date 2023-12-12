@@ -5,4 +5,4 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class MealDetailResponse(
     val meals: List<MealDetail>
-)
+) : java.io.Serializable

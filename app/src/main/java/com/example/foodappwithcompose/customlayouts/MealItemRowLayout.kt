@@ -1,6 +1,7 @@
 package com.example.foodappwithcompose.customlayouts
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,12 +21,15 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
+import com.example.foodappwithcompose.ScreenState
 import com.example.foodappwithcompose.model.MealDetail
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MealItemRowLayout(meals: List<MealDetail>, modifier: Modifier, mealClick: ((List<MealDetail>) -> Unit)? = null) {
+fun MealItemRowLayout(meals: List<MealDetail>, modifier: Modifier,navHostController: NavHostController) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -37,7 +41,10 @@ fun MealItemRowLayout(meals: List<MealDetail>, modifier: Modifier, mealClick: ((
             shape = RoundedCornerShape(20.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
             onClick = {
-                mealClick?.invoke(meals)
+                meals.map {
+                    navHostController.currentBackStackEntry?.savedStateHandle?.set("mealDetailData",it)
+                }
+                navHostController.navigate(ScreenState.Detail.route)
             }
         ) {
             if (meals.isNotEmpty()) {

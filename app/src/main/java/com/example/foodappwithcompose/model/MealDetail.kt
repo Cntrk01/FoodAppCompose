@@ -1,5 +1,6 @@
 package com.example.foodappwithcompose.model
 
+import com.google.gson.Gson
 import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.Serializable
 
@@ -111,4 +112,4 @@ data class MealDetail(
     val strTags: String?,
     @SerializedName("strYoutube")
     val strYoutube: String
-)
+): java.io.Serializable
