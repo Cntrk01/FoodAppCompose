@@ -10,13 +10,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.foundation.lazy.items
-import androidx.navigation.NavController
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.customlayouts.AppBar
 import com.example.foodappwithcompose.customlayouts.CategoryItemRowLayout
 import com.example.foodappwithcompose.customlayouts.MealItemRowLayout
 import com.example.foodappwithcompose.model.CategoryResponse
-import com.example.foodappwithcompose.model.MealDetail
 import com.example.foodappwithcompose.model.MealDetailResponse
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -30,7 +29,7 @@ fun HomeSuccessComponent(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        AppBar(text = "Home Page")
+        AppBar(text = "Home Page", Color.Black)
 
         Column(
             modifier = Modifier
@@ -57,7 +56,7 @@ fun HomeSuccessComponent(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(category.categories) {
-                    CategoryItemRowLayout(categoriesItem = it)
+                    CategoryItemRowLayout(categoriesItem = it, navHostController = navHostController)
                 }
             }
         }
