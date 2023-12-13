@@ -26,8 +26,9 @@ fun SetupNavGraph(navController: NavHostController){
                 type= NavType.StringType
             }
         )){
-            val categoryId=it.arguments?.getString("categoryId").toString()
-            CategoryPage(categoryId)
+//            val categoryId=it.arguments?.getString("categoryId").toString()
+            //bu id ile geliyor fakat ben viewmodelinin içinde SavedStateHandle ile taşınan idyi alıp init içerisinde çalıştırarak dataları fetch ettim
+            CategoryPage(navHostController=navController)
         }
     }
 }

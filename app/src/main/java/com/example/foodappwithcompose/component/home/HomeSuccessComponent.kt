@@ -13,8 +13,8 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.customlayouts.AppBar
-import com.example.foodappwithcompose.customlayouts.CategoryItemRowLayout
-import com.example.foodappwithcompose.customlayouts.MealItemRowLayout
+import com.example.foodappwithcompose.customlayouts.CategoriesRowLayout
+import com.example.foodappwithcompose.customlayouts.HomePageMealItemRow
 import com.example.foodappwithcompose.model.CategoryResponse
 import com.example.foodappwithcompose.model.MealDetailResponse
 
@@ -36,7 +36,7 @@ fun HomeSuccessComponent(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            MealItemRowLayout(randomMeal.meals, Modifier, navHostController = navHostController)
+            HomePageMealItemRow(randomMeal.meals, Modifier, navHostController = navHostController)
         }
 
         Column(
@@ -44,7 +44,7 @@ fun HomeSuccessComponent(
                 .fillMaxWidth()
                 .weight(1f)
         ) {
-            MealItemRowLayout(searchMeal.meals, Modifier, navHostController = navHostController)
+            HomePageMealItemRow(searchMeal.meals, Modifier, navHostController = navHostController)
         }
         Column(
             modifier = Modifier
@@ -56,7 +56,7 @@ fun HomeSuccessComponent(
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(category.categories) {
-                    CategoryItemRowLayout(categoriesItem = it, navHostController = navHostController)
+                    CategoriesRowLayout(categoriesItem = it, navHostController = navHostController)
                 }
             }
         }
