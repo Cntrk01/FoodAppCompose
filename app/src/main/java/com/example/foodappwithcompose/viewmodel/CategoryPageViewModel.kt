@@ -18,6 +18,7 @@ class CategoryPageViewModel(private val savedStateHandle: SavedStateHandle) : Vi
             getMealByCategory(it)
             categoryId=it
         }
+        
     }
 
     private fun getMealByCategory(categoryId:String)=viewModelScope.launch {
