@@ -20,7 +20,7 @@ fun CategoryPage(navHostController: NavHostController){
         is CategoryPageState.Error -> {
             val message = (state as CategoryPageState.Error).error
             ErrorComponent(message,onRefreshClicked ={
-
+                viewModel.tryToGetMeal()
             })
         }
         is CategoryPageState.Success->{

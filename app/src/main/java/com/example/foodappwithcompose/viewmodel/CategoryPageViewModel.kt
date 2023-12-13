@@ -12,10 +12,11 @@ import kotlinx.coroutines.launch
 class CategoryPageViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
     private val _state = mutableStateOf<CategoryPageState>(CategoryPageState.Loading)
     val state: State<CategoryPageState> = _state
-
+    private var categoryId=""
     init {
         savedStateHandle.get<String>("categoryId")?.let {
             getMealByCategory(it)
+            categoryId=it
         }
     }
 
@@ -36,4 +37,9 @@ class CategoryPageViewModel(private val savedStateHandle: SavedStateHandle) : Vi
             _state.value= CategoryPageState.Error("Connect Timeout Error")
         }
     }
+
+    fun tryToGetMeal(){
+        getMealByCategory(categoryId = categoryId)
+    }
+
 }
