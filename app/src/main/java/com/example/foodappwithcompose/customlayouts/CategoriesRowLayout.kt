@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.foodappwithcompose.ScreenState
 import com.example.foodappwithcompose.model.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,9 +25,9 @@ fun CategoriesRowLayout(categoriesItem: Category, navHostController: NavHostCont
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         onClick = {
-            navHostController.navigate(route = "category/"+categoriesItem.strCategory)
+            navHostController.navigate(route = ScreenState.Category.route+"/${categoriesItem.strCategory}")
         })
     {
-        ItemRow(mealImage = categoriesItem.strCategoryThumb, mealName = categoriesItem.strCategory)
+        MealItemRow(mealImage = categoriesItem.strCategoryThumb, mealName = categoriesItem.strCategory)
     }
 }

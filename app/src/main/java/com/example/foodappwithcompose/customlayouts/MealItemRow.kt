@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
 @Composable
-fun ItemRow(mealImage:String,mealName:String){
+fun MealItemRow(mealImage:String, mealName:String){
     Box(modifier = Modifier.fillMaxSize()) {
         AsyncImage(
             model = mealImage,

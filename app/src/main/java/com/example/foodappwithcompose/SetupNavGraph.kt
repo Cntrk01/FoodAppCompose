@@ -10,6 +10,7 @@ import com.example.foodappwithcompose.model.MealDetail
 import com.example.foodappwithcompose.ui.CategoryPage
 import com.example.foodappwithcompose.ui.HomePage
 import com.example.foodappwithcompose.ui.DetailPage
+import com.example.foodappwithcompose.ui.DetailWithMealId
 
 @Composable
 fun SetupNavGraph(navController: NavHostController){
@@ -21,14 +22,13 @@ fun SetupNavGraph(navController: NavHostController){
             navController.previousBackStackEntry?.savedStateHandle?.get<MealDetail>("mealDetailData")
             DetailPage(navController = navController)
         }
-        composable(route=ScreenState.Category.route, arguments = listOf(
-            navArgument("categoryId"){
-                type= NavType.StringType
-            }
-        )){
-//            val categoryId=it.arguments?.getString("categoryId").toString()
-            //bu id ile geliyor fakat ben viewmodelinin içinde SavedStateHandle ile taşınan idyi alıp init içerisinde çalıştırarak dataları fetch ettim
+        composable(route=ScreenState.Category.route+"/{categoryId}"){
+//          val categoryId=it.arguments?.getString("categoryId").toString()
+//          bu id ile geliyor fakat ben viewmodelinin içinde SavedStateHandle ile taşınan idyi alıp init içerisinde çalıştırarak dataları fetch ettim
             CategoryPage(navHostController=navController)
+        }
+        composable(route=ScreenState.CategoryItemDetail.route+"/{mealId}"){
+            DetailWithMealId(navHostController = navController)
         }
     }
 }

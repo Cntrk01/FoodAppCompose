@@ -17,7 +17,11 @@ import com.example.foodappwithcompose.model.MealDetail
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePageMealItemRow(meals: List<MealDetail>, modifier: Modifier, navHostController: NavHostController) {
+fun HomePageMealItemRow(
+    meals: List<MealDetail>,
+    modifier: Modifier,
+    navHostController: NavHostController
+) {
     Column(
         modifier = modifier.fillMaxSize()
     ) {
@@ -30,14 +34,14 @@ fun HomePageMealItemRow(meals: List<MealDetail>, modifier: Modifier, navHostCont
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
             onClick = {
                 meals.map {
-                    navHostController.currentBackStackEntry?.savedStateHandle?.set("mealDetailData",it)
+                    navHostController.currentBackStackEntry?.savedStateHandle?.set("mealDetailData", it)
                 }
                 navHostController.navigate(ScreenState.Detail.route)
             }
         ) {
             if (meals.isNotEmpty()) {
                 meals.map {
-                    ItemRow(it.strMealThumb.toString(),it.strMeal.toString())
+                    MealItemRow(it.strMealThumb.toString(), it.strMeal.toString())
                 }
             }
         }

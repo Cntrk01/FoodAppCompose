@@ -25,8 +25,7 @@ fun CategoryPage(navHostController: NavHostController){
         }
         is CategoryPageState.Success->{
             val data=(state as CategoryPageState.Success).mealDetailResponse
-            println(data)
-            CategoriesMealItemRowLayout(data)
+            CategoriesMealItemRowLayout(mealsResponse = data, navHostController = navHostController)
         }
     }
 }

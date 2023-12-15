@@ -13,22 +13,23 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import com.example.foodappwithcompose.ScreenState
 import com.example.foodappwithcompose.model.Meals
 import com.example.foodappwithcompose.model.MealsResponse
 
 @Composable
-fun CategoriesMealItemRowLayout(mealsResponse: MealsResponse){
+fun CategoriesMealItemRowLayout(mealsResponse: MealsResponse,navHostController: NavHostController){
     LazyVerticalGrid(columns = GridCells.Fixed(2)){
         items(mealsResponse.meals){
-            MealItemDesign(meals = it)
+            MealItemDesign(meals = it, navHostController = navHostController)
         }
     }
-    
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MealItemDesign(meals: Meals){
+fun MealItemDesign(meals: Meals,navHostController: NavHostController){
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -37,9 +38,9 @@ fun MealItemDesign(meals: Meals){
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         onClick = {
-            //navHostController.navigate(route = "category/"+categoriesItem.strCategory)
+            navHostController.navigate(ScreenState.CategoryItemDetail.route+"/${meals.idMeal}")
         })
     {
-        ItemRow(meals.strMealThumb,meals.strMeal)
+        MealItemRow(meals.strMealThumb,meals.strMeal)
     }
 }
