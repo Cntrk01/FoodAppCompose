@@ -18,15 +18,18 @@ fun SetupNavGraph(navController: NavHostController){
         composable(route = ScreenState.Home.route){
             HomePage(navController = navController)
         }
+        //HomePageMealItemRow içinde yönlendirme
         composable(route = ScreenState.Detail.route){
             navController.previousBackStackEntry?.savedStateHandle?.get<MealDetail>("mealDetailData")
             DetailPage(navController = navController)
         }
+        //CategoriesRowLayout içinde yönlendirme
         composable(route=ScreenState.Category.route+"/{categoryId}"){
 //          val categoryId=it.arguments?.getString("categoryId").toString()
 //          bu id ile geliyor fakat ben viewmodelinin içinde SavedStateHandle ile taşınan idyi alıp init içerisinde çalıştırarak dataları fetch ettim
             CategoryPage(navHostController=navController)
         }
+        //CategoriesMealItemRowLayout içinde yönlendirme
         composable(route=ScreenState.CategoryItemDetail.route+"/{mealId}"){
             DetailWithMealId(navHostController = navController)
         }
