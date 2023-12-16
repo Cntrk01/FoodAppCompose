@@ -4,12 +4,13 @@ import android.annotation.SuppressLint
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
-import com.example.foodappwithcompose.customlayouts.MealDetailRow
+import androidx.navigation.NavHostController
+import com.example.foodappwithcompose.customlayouts.MealDetailLayout
 import com.example.foodappwithcompose.model.MealDetail
 
 @SuppressLint("QueryPermissionsNeeded")
 @Composable
-fun DetailPage(navController: NavController) {
+fun DetailPage(navController: NavHostController) {
     val mealDetail = navController.previousBackStackEntry?.savedStateHandle?.get<MealDetail>("mealDetailData")
     val context = LocalContext.current
     mealDetail?.let {
@@ -18,7 +19,7 @@ fun DetailPage(navController: NavController) {
         } else {
             it.strMeal.toString()
         }
-        MealDetailRow(
+        MealDetailLayout(
             appBarText = trimmedText,
             mealImage = it.strMealThumb.toString(),
             mealName = it.strMeal.toString(),
@@ -26,7 +27,8 @@ fun DetailPage(navController: NavController) {
             mealCategory = it.strCategory.toString(),
             mealDescription = it.strInstructions.toString(),
             mealYtUrl = it.strYoutube,
-            context = context
+            context = context,
+            navHostController = navController
         )
     }
 }

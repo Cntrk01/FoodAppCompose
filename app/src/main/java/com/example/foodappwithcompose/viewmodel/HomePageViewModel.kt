@@ -28,16 +28,16 @@ class HomePageViewModel : ViewModel() {
         try {
             _state.value = HomePageState.Success(
                 MealApiClient.getRandomMeal(),
-                MealApiClient.searchMeal("beef"),
+                MealApiClient.searchMeal(query = "beef"),
                 MealApiClient.getMealCategory(),
                 false
             )
         } catch (e: Exception) {
-            _state.value = HomePageState.Error("Error")
+            _state.value = HomePageState.Error(error = "Error")
         } catch (e:InternalError){
-            _state.value= HomePageState.Error("Internet Connection Error")
+            _state.value= HomePageState.Error(error = "Internet Connection Error")
         } catch (e:ConnectTimeoutException){
-            _state.value= HomePageState.Error("Connect Timeout Error")
+            _state.value= HomePageState.Error(error = "Connect Timeout Error")
         }
     }
 }

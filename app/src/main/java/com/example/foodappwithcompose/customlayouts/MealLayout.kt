@@ -17,12 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
+//Kategoriye tıklanınca ikili gösterdiğim için GridMeal dedim
 @Composable
-fun MealItemRow(mealImage:String, mealName:String){
+fun MealLayout(mealImage:String, mealName:String){
     Box(modifier = Modifier.fillMaxSize()) {
         AsyncImage(
             model = mealImage,
-            contentDescription = "thumbnail",
+            contentDescription = "meal",
             contentScale = ContentScale.Crop,
             modifier = Modifier.fillMaxWidth()
         )
@@ -47,7 +48,8 @@ fun MealItemRow(mealImage:String, mealName:String){
                 style = TextStyle(
                     color = Color.White,
                     fontSize = 16.sp
-                )
+                ),
+                maxLines = 1
             )
         }
     }

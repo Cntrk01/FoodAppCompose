@@ -12,14 +12,11 @@ import kotlinx.coroutines.launch
 class CategoryPageViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
     private val _state = mutableStateOf<CategoryPageState>(CategoryPageState.Loading)
     val state: State<CategoryPageState> = _state
-    private var categoryId=""
+    private var categoryName=""
     init {
-        savedStateHandle.get<String>("categoryId")?.let {
-            getMealByCategory(it)
-            categoryId=it
-            println(
-                it
-            )
+        savedStateHandle.get<String>("categoryName")?.let {
+            getMealByCategory(categoryId=it)
+            categoryName=it
         }
     }
 
@@ -28,21 +25,20 @@ class CategoryPageViewModel(private val savedStateHandle: SavedStateHandle) : Vi
         try {
             val fetchData=MealApiClient.getMealInCategory(categoryId)
             if (fetchData.meals.isNotEmpty()){
-                _state.value=CategoryPageState.Success(fetchData)
+                _state.value=CategoryPageState.Success(mealDetailResponse = fetchData, categoryName = categoryName)
             }else{
-                _state.value = CategoryPageState.Error("No food found in this category")
+                _state.value = CategoryPageState.Error(error ="No food found in this category")
             }
         }catch (e: Exception) {
-            _state.value = CategoryPageState.Error("Error")
+            _state.value = CategoryPageState.Error(error = "Error")
         } catch (e:InternalError){
-            _state.value= CategoryPageState.Error("Internet Connection Error")
+            _state.value= CategoryPageState.Error(error ="Internet Connection Error")
         } catch (e: ConnectTimeoutException){
-            _state.value= CategoryPageState.Error("Connect Timeout Error")
+            _state.value= CategoryPageState.Error(error ="Connect Timeout Error")
         }
     }
-
     fun tryToGetMeal(){
-        getMealByCategory(categoryId = categoryId)
+        getMealByCategory(categoryId = categoryName)
     }
 
 }

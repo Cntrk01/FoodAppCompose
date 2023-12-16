@@ -27,11 +27,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.example.foodappwithcompose.R
 
+//Tıklanan yemeğin detayını gösterir
 @Composable
-fun MealDetailRow(
+fun MealDetailLayout(
     appBarText:String,
     mealImage:String,
     mealName:String,
@@ -39,14 +41,15 @@ fun MealDetailRow(
     mealCategory:String,
     mealDescription:String,
     mealYtUrl:String,
-    context:Context
+    context:Context,
+    navHostController: NavHostController
 ){
     Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(10.dp)
+        modifier = Modifier.fillMaxWidth().padding(10.dp)
     ) {
-        AppBar(text = appBarText, Color.Black)
+        AppBar(isVisible = true,text = appBarText, Color.Black){
+            navHostController.popBackStack()
+        }
         Box {
             AsyncImage(
                 model = mealImage,
@@ -59,12 +62,12 @@ fun MealDetailRow(
             )
             Text(
                 text = mealName,
-                fontWeight = FontWeight.Bold,
-                color = Color.Black,
+                fontWeight = FontWeight.ExtraBold,
+                color = Color.White,
                 modifier = Modifier
                     .align(Alignment.BottomStart)
                     .padding(16.dp),
-                fontSize = 19.sp
+                fontSize = 20.sp
             )
         }
         Row(
@@ -76,19 +79,19 @@ fun MealDetailRow(
                 contentScale = ContentScale.Fit
             )
             Text(
-                text = mealCountry,
+                text = "Location : $mealCountry",
                 modifier = Modifier.padding(start = 5.dp),
                 fontWeight = FontWeight.Bold
             )
 
             Image(
                 painter = painterResource(id = R.drawable.baseline_category_24),
-                contentDescription = "category",
+                contentDescription = "Back Button",
                 contentScale = ContentScale.Fit,
                 modifier = Modifier.padding(start = 25.dp)
             )
             Text(
-                text = mealCategory,
+                text = "Category : $mealCategory",
                 modifier = Modifier.padding(start = 5.dp),
                 fontWeight = FontWeight.Bold
             )
@@ -115,8 +118,7 @@ fun MealDetailRow(
                             val customTabsIntent = builder.build()
                             customTabsIntent.launchUrl(context, Uri.parse(mealYtUrl))
                         } else {
-                            Toast
-                                .makeText(context, "Not Found Youtube Video", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Not Found Youtube Video", Toast.LENGTH_SHORT).show()
                         }
                     }
             )

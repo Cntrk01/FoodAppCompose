@@ -12,7 +12,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             FoodAppWithComposeTheme {
                 val navController= rememberNavController()
-                SetupNavGraph(navController = navController)
+                SetupNavGraph(navHostController = navController)
             }
         }
     }

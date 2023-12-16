@@ -20,7 +20,7 @@ class MealDetailWithIdViewModel(private val savedStateHandle : SavedStateHandle)
         savedStateHandle.get<String>("mealId")?.let {
             mealId=it
         }
-        getMealDetail(mealId)
+        getMealDetail(fetchData=mealId)
     }
 
     private fun getMealDetail(fetchData:String)=viewModelScope.launch {
@@ -30,11 +30,14 @@ class MealDetailWithIdViewModel(private val savedStateHandle : SavedStateHandle)
                 MealApiClient.getMealDetailWithId(mealId = fetchData)
             )
         }catch (e: Exception) {
-            _state.value = DetailState.Error("Error")
+            _state.value = DetailState.Error(error = "Error")
         } catch (e:InternalError){
-            _state.value= DetailState.Error("Internet Connection Error")
+            _state.value= DetailState.Error(error ="Internet Connection Error")
         } catch (e: ConnectTimeoutException){
-            _state.value= DetailState.Error("Connect Timeout Error")
+            _state.value= DetailState.Error(error ="Connect Timeout Error")
         }
+    }
+    fun tryToGetMealDetail(){
+        getMealDetail(fetchData=mealId)
     }
 }
