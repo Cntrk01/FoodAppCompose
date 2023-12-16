@@ -4,9 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.foodappwithcompose.component.home.ErrorComponent
-import com.example.foodappwithcompose.component.home.LoadingComponent
-import com.example.foodappwithcompose.customlayouts.CategoriesMealItemRowLayout
+import com.example.foodappwithcompose.component.ErrorComponent
+import com.example.foodappwithcompose.component.LoadingComponent
+import com.example.foodappwithcompose.customlayouts.FoodCategoriesLayout
 import com.example.foodappwithcompose.state.CategoryPageState
 import com.example.foodappwithcompose.viewmodel.CategoryPageViewModel
 
@@ -25,7 +25,10 @@ fun CategoryPage(navHostController: NavHostController){
         }
         is CategoryPageState.Success->{
             val data=(state as CategoryPageState.Success).mealDetailResponse
-            CategoriesMealItemRowLayout(mealsResponse = data, navHostController = navHostController)
+            val categoryName=(state as CategoryPageState.Success).categoryName
+            FoodCategoriesLayout(mealsResponse = data,
+                navHostController = navHostController,
+                categoryName=categoryName)
         }
     }
 }

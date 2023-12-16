@@ -1,4 +1,4 @@
-package com.example.foodappwithcompose.customlayouts
+package com.example.foodappwithcompose.component.category
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,11 +12,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.ScreenState
+import com.example.foodappwithcompose.customlayouts.MealLayout
 import com.example.foodappwithcompose.model.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CategoriesRowLayout(categoriesItem: Category, navHostController: NavHostController) {
+fun CategorySuccessComponent(categoriesItem: Category, navHostController: NavHostController) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -28,6 +29,6 @@ fun CategoriesRowLayout(categoriesItem: Category, navHostController: NavHostCont
             navHostController.navigate(route = ScreenState.Category.route+"/${categoriesItem.strCategory}")
         })
     {
-        MealItemRow(mealImage = categoriesItem.strCategoryThumb, mealName = categoriesItem.strCategory)
+        MealLayout(mealImage = categoriesItem.strCategoryThumb, mealName = categoriesItem.strCategory)
     }
 }

@@ -15,9 +15,10 @@ import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.ScreenState
 import com.example.foodappwithcompose.model.MealDetail
 
+//Home pagede isim ve fotoğraf şeklide gösterdiğim için
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePageMealItemRow(
+fun SingleMealLayout(
     meals: List<MealDetail>,
     modifier: Modifier,
     navHostController: NavHostController
@@ -31,7 +32,7 @@ fun HomePageMealItemRow(
                 .padding(10.dp)
                 .weight(1f),
             shape = RoundedCornerShape(20.dp),
-            elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
             onClick = {
                 meals.map {
                     navHostController.currentBackStackEntry?.savedStateHandle?.set("mealDetailData", it)
@@ -41,7 +42,7 @@ fun HomePageMealItemRow(
         ) {
             if (meals.isNotEmpty()) {
                 meals.map {
-                    MealItemRow(it.strMealThumb.toString(), it.strMeal.toString())
+                    MealLayout(it.strMealThumb.toString(), it.strMeal.toString())
                 }
             }
         }

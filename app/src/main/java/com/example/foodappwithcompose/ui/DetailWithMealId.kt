@@ -5,9 +5,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.example.foodappwithcompose.component.home.ErrorComponent
-import com.example.foodappwithcompose.component.home.LoadingComponent
-import com.example.foodappwithcompose.customlayouts.MealDetailRow
+import com.example.foodappwithcompose.component.ErrorComponent
+import com.example.foodappwithcompose.component.LoadingComponent
+import com.example.foodappwithcompose.customlayouts.MealDetailLayout
 import com.example.foodappwithcompose.state.DetailState
 import com.example.foodappwithcompose.viewmodel.MealDetailWithIdViewModel
 
@@ -21,13 +21,13 @@ fun DetailWithMealId(navHostController: NavHostController){
         is DetailState.Error->{
             val message = (state as DetailState.Error).error
             ErrorComponent(message,onRefreshClicked ={
-
+                detailViewModel.tryToGetMealDetail()
             })
         }
         is DetailState.Success->{
             val data= (state as DetailState.Success).mealDetail
             data.meals.map {
-                MealDetailRow(
+                MealDetailLayout(
                     appBarText = it.strMeal.toString(),
                     mealImage = it.strMealThumb.toString(),
                     mealName = it.strMeal.toString(),
@@ -35,7 +35,8 @@ fun DetailWithMealId(navHostController: NavHostController){
                     mealCategory = it.strCategory.toString(),
                     mealDescription = it.strInstructions.toString(),
                     mealYtUrl = it.strYoutube,
-                    context =context
+                    context =context,
+                    navHostController = navHostController
                 )
             }
         }
