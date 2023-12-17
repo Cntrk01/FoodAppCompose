@@ -20,7 +20,7 @@ fun Category(navHostController: NavHostController){
         is CategoryState.Error-> {
             val error=(state as CategoryState.Error).error
             ErrorComponent(errorMessage = error) {
-
+                categoryListViewModel.tryToGetCategory()
             }
         }
         else -> {
