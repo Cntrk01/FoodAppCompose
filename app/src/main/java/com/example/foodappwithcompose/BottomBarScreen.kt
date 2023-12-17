@@ -6,17 +6,17 @@ sealed class BottomBarScreen(
     val icon:Int
 ){
     object Home : BottomBarScreen(
-        route = ScreenState.Home.route,
+        route = ScreenState.HomeBottomItem.route,
         title = "Home",
         icon = R.drawable.baseline_home_24
     )
     object Category : BottomBarScreen(
-        route = ScreenState.CategoryBottomNavBar.route,
+        route = ScreenState.CategoryBottomItem.route,
         title = "Category",
         icon = R.drawable.baseline_category_24
     )
     object Search : BottomBarScreen(
-        route = ScreenState.Search.route,
+        route = ScreenState.CategorySearchItem.route,
         title = "Search",
         icon = R.drawable.baseline_search_24
     )
