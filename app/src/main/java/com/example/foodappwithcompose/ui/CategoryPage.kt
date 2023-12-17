@@ -7,7 +7,7 @@ import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.component.ErrorComponent
 import com.example.foodappwithcompose.component.LoadingComponent
 import com.example.foodappwithcompose.customlayouts.FoodCategoriesLayout
-import com.example.foodappwithcompose.state.CategoryPageState
+import com.example.foodappwithcompose.state.CategoryMealItemState
 import com.example.foodappwithcompose.viewmodel.CategoryPageViewModel
 
 @Composable
@@ -16,16 +16,16 @@ fun CategoryPage(navHostController: NavHostController){
 
     val state by viewModel.state
     when(state){
-        is CategoryPageState.Loading-> LoadingComponent()
-        is CategoryPageState.Error -> {
-            val message = (state as CategoryPageState.Error).error
+        is CategoryMealItemState.Loading-> LoadingComponent()
+        is CategoryMealItemState.Error -> {
+            val message = (state as CategoryMealItemState.Error).error
             ErrorComponent(message,onRefreshClicked ={
                 viewModel.tryToGetMeal()
             })
         }
-        is CategoryPageState.Success->{
-            val data=(state as CategoryPageState.Success).mealDetailResponse
-            val categoryName=(state as CategoryPageState.Success).categoryName
+        is CategoryMealItemState.Success->{
+            val data=(state as CategoryMealItemState.Success).mealDetailResponse
+            val categoryName=(state as CategoryMealItemState.Success).categoryName
             FoodCategoriesLayout(mealsResponse = data,
                 navHostController = navHostController,
                 categoryName=categoryName)

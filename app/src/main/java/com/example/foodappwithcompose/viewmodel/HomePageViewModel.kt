@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
 class HomePageViewModel : ViewModel() {
 //    private val  _state = MutableStateFlow(HomeRandomVSearchMealState.Loading)
 //    val state : StateFlow<HomeRandomVSearchMealState> =_state  bunda loading verdiğinde asagıda tekrar succes veremiyorum.fakat mutable da verebiliyorum
-
     private val _state = mutableStateOf<HomePageState>(HomePageState.Loading)
     val state: State<HomePageState> = _state
 

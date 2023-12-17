@@ -4,9 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.foodappwithcompose.bottomnavbar.Category
+import com.example.foodappwithcompose.bottomnavbar.Home
 import com.example.foodappwithcompose.model.MealDetail
 import com.example.foodappwithcompose.ui.CategoryPage
-import com.example.foodappwithcompose.ui.HomePage
 import com.example.foodappwithcompose.ui.DetailPage
 import com.example.foodappwithcompose.ui.DetailWithMealId
 
@@ -14,7 +15,7 @@ import com.example.foodappwithcompose.ui.DetailWithMealId
 fun SetupNavGraph(navHostController: NavHostController){
     NavHost(navController = navHostController, startDestination = ScreenState.Home.route){
         composable(route = ScreenState.Home.route){
-            HomePage(navController = navHostController)
+            Home(navHostController = navHostController)
         }
         //HomePageMealItemRow içinde yönlendirme
         composable(route = ScreenState.Detail.route){
@@ -30,6 +31,10 @@ fun SetupNavGraph(navHostController: NavHostController){
         //CategoriesMealItemRowLayout içinde yönlendirme
         composable(route=ScreenState.CategoryItemDetail.route+"/{mealId}"){
             DetailWithMealId(navHostController = navHostController)
+        }
+        //Bottombarda category sayfasına gidiyor
+        composable(route = ScreenState.CategoryBottomNavBar.route){
+           Category(navHostController = navHostController)
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.foodappwithcompose.ui
+package com.example.foodappwithcompose.bottomnavbar
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -13,7 +13,7 @@ import com.example.foodappwithcompose.state.HomePageState
 import com.example.foodappwithcompose.viewmodel.HomePageViewModel
 
 @Composable
-fun HomePage(navController: NavHostController) {
+fun Home(navHostController: NavHostController){
     val homePageViewModel: HomePageViewModel = viewModel()
     var firstTimeCheck = true
     val state by homePageViewModel.state
@@ -28,7 +28,7 @@ fun HomePage(navController: NavHostController) {
             HomeSuccessComponent(
                 randomMeal = randomMeal,
                 searchMeal = searchMeal,
-                category = category, navHostController = navController
+                category = category, navHostController = navHostController
             )
         }
 
@@ -41,8 +41,7 @@ fun HomePage(navController: NavHostController) {
     }
     if (firstTimeCheck) {
         LaunchedEffect(Unit) {
-            homePageViewModel.processIntent(intent=HomeIntent.Loading)
+            homePageViewModel.processIntent(intent= HomeIntent.Loading)
         }
     }
-
 }
