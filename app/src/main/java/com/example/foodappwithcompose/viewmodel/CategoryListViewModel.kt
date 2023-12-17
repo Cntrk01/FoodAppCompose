@@ -34,4 +34,8 @@ class CategoryListViewModel : ViewModel() {
             _state.value= CategoryState.Error(error ="Connect Timeout Error")
         }
     }
+
+    fun tryToGetCategory(){
+        getCategories()
+    }
 }
