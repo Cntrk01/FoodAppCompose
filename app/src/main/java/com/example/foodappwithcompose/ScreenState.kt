@@ -1,10 +1,10 @@
 package com.example.foodappwithcompose
 
 sealed class ScreenState(val route:String){
-    object Home : ScreenState("home")
+    object HomeBottomItem : ScreenState("home")
     object Detail : ScreenState("detail")
     object Category : ScreenState("category")
     object CategoryItemDetail : ScreenState("mealId")
-    object Search : ScreenState("search")
-    object CategoryBottomNavBar : ScreenState("categoryList")
+    object CategorySearchItem : ScreenState("search")
+    object CategoryBottomItem : ScreenState("categoryList")
 }

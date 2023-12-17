@@ -13,8 +13,8 @@ import com.example.foodappwithcompose.ui.DetailWithMealId
 
 @Composable
 fun SetupNavGraph(navHostController: NavHostController){
-    NavHost(navController = navHostController, startDestination = ScreenState.Home.route){
-        composable(route = ScreenState.Home.route){
+    NavHost(navController = navHostController, startDestination = ScreenState.HomeBottomItem.route){
+        composable(route = ScreenState.HomeBottomItem.route){
             Home(navHostController = navHostController)
         }
         //HomePageMealItemRow içinde yönlendirme
@@ -33,7 +33,7 @@ fun SetupNavGraph(navHostController: NavHostController){
             DetailWithMealId(navHostController = navHostController)
         }
         //Bottombarda category sayfasına gidiyor
-        composable(route = ScreenState.CategoryBottomNavBar.route){
+        composable(route = ScreenState.CategoryBottomItem.route){
            Category(navHostController = navHostController)
         }
     }

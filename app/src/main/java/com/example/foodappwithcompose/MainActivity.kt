@@ -4,7 +4,9 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.RowScope
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -12,14 +14,16 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.res.painterResource
-import androidx.navigation.NavDestination
-import androidx.navigation.NavDestination.Companion.hierarchy
-import androidx.navigation.NavHostController
+import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.foodappwithcompose.ui.theme.FoodAppWithComposeTheme
+
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
@@ -28,61 +32,75 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FoodAppWithComposeTheme {
-                val navController = rememberNavController()
-                Scaffold(
-                    bottomBar = {
-                        BottomBar(navHostController = navController)
-                    }
-                ) {
-                    SetupNavGraph(navHostController = navController)
-                }
+                BottomBarAnimationApp()
             }
         }
     }
 
     @Composable
-    fun BottomBar(navHostController: NavHostController) {
-        val screen = listOf(
-            BottomBarScreen.Home,
-            BottomBarScreen.Category,
-            BottomBarScreen.Search
-        )
-        val navBackStackEntry by navHostController.currentBackStackEntryAsState()
-        val currentDestination = navBackStackEntry?.destination
+    fun BottomBarAnimationApp() {
+        val bottomBarState = rememberSaveable { (mutableStateOf(true)) }
+        val navController = rememberNavController()
+        val navBackStackEntry by navController.currentBackStackEntryAsState()
 
-        BottomAppBar {
-            screen.forEach { screen ->
-                AddItem(screen = screen, currentDestination = currentDestination, navHostController = navHostController)
+        when (navBackStackEntry?.destination?.route) {
+            ScreenState.CategoryBottomItem.route -> {
+                // Show BottomBar
+                bottomBarState.value = true
+            }
+
+            ScreenState.HomeBottomItem.route -> {
+                bottomBarState.value = true
+            }
+
+            ScreenState.CategorySearchItem.route -> {
+                bottomBarState.value = true
+            }
+
+            else -> {
+                bottomBarState.value = false
+                //bu else dışındaydı eğer burası çalışmaz ise tek tek diğer state durumlarını da eklicem
+                //"car_details" -> {
+                // Hide BottomBar
+                // bottomBarState.value = false
+                // }
             }
         }
-    }
-
-    @Composable
-    fun RowScope.AddItem(
-        screen: BottomBarScreen,
-        currentDestination: NavDestination?,
-        navHostController: NavHostController
-    ) {
-        NavigationBarItem(selected =
-        currentDestination?.hierarchy?.any {
-            it.route == screen.route
-        }==true,
-            onClick = {
-                navHostController.navigate(screen.route)
+        Scaffold(
+            bottomBar = {
+                BottomBar(navController = navController, bottomBarState = bottomBarState)
             },
-            alwaysShowLabel = false,
-            icon = {
-                Icon(painter = painterResource(id = screen.icon), contentDescription = "Icon")
-            },
-            label = {
-                Text(text = screen.title)
+            content = {
+                SetupNavGraph(navHostController = navController)
             })
     }
 
-//    fun <A> String.fromJson(type: Class<A>): A {
-//        return Gson().fromJson(this, type)
-//    }
-//    fun <A> A.toJson(): String? {
-//        return Gson().toJson(this)
-//    }
+    @Composable
+    fun BottomBar(navController: NavController, bottomBarState: MutableState<Boolean>) {
+        val items = listOf(BottomBarScreen.Home, BottomBarScreen.Category, BottomBarScreen.Search)
+        AnimatedVisibility(visible = bottomBarState.value,
+            enter = slideInVertically(initialOffsetY = { it }),
+            exit = slideOutVertically(targetOffsetY = { it }),
+            content = {
+                //Bottom bar default mor olan ile geliyor zaten kütüphanesini de ekledim var gradleda
+                BottomAppBar {
+                    val navBackStackEntry by navController.currentBackStackEntryAsState()
+                    val currentRoute = navBackStackEntry?.destination?.route
+
+                    items.forEach {
+                        NavigationBarItem(
+                            selected = currentRoute == it.route,
+                            onClick = { navController.navigate(it.route) },
+                            icon = {
+                                Icon(
+                                    painter = painterResource(id = it.icon),
+                                    contentDescription = it.title
+                                )
+                            },
+                            label = { Text(text = it.title) },
+                        )
+                    }
+                }
+            })//iki saattir burada {} açık oldugu için hata arıyorum :D
+    }
 }
