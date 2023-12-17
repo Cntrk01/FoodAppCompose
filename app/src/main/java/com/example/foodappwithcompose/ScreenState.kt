@@ -5,4 +5,6 @@ sealed class ScreenState(val route:String){
     object Detail : ScreenState("detail")
     object Category : ScreenState("category")
     object CategoryItemDetail : ScreenState("mealId")
+    object Search : ScreenState("search")
+    object CategoryBottomNavBar : ScreenState("categoryList")
 }

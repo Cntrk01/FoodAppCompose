@@ -15,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.component.category.CategorySuccessComponent
 import com.example.foodappwithcompose.customlayouts.AppBar
+import com.example.foodappwithcompose.customlayouts.CategoryListLayout
 import com.example.foodappwithcompose.customlayouts.SingleMealLayout
 import com.example.foodappwithcompose.customlayouts.TitleLayout
 import com.example.foodappwithcompose.model.CategoryResponse
@@ -31,7 +32,7 @@ fun HomeSuccessComponent(
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
-        AppBar(isVisible = false,text = "Home", Color.Black)
+        AppBar(isVisible = false,text = "Home",color=Color.Black)
 
         Column(
             modifier = Modifier
@@ -39,7 +40,7 @@ fun HomeSuccessComponent(
                 .weight(1f)
         ) {
             TitleLayout(title = "What Would You Like Eat")
-            SingleMealLayout(randomMeal.meals, Modifier, navHostController = navHostController)
+            SingleMealLayout(meals = randomMeal.meals, modifier = Modifier, navHostController = navHostController)
         }
 
         Column(
@@ -48,7 +49,7 @@ fun HomeSuccessComponent(
                 .weight(1f)
         ) {
             TitleLayout(title = "Popular Meal")
-            SingleMealLayout(searchMeal.meals, Modifier, navHostController = navHostController)
+            SingleMealLayout(meals = searchMeal.meals, modifier = Modifier, navHostController = navHostController)
         }
         Column(
             modifier = Modifier
@@ -56,14 +57,9 @@ fun HomeSuccessComponent(
                 .weight(1f)
         ) {
             TitleLayout(title = "Category")
-            LazyRow(
-                horizontalArrangement = Arrangement.spacedBy(20.dp),
-                modifier = Modifier.fillMaxSize()
-            ) {
-                items(category.categories) {
-                    CategorySuccessComponent(categoriesItem = it, navHostController = navHostController)
-                }
-            }
+            CategoryListLayout(listAlignment = "Horizontal",
+                categoryResponse = category,
+                navHostController = navHostController)
         }
     }
 }
