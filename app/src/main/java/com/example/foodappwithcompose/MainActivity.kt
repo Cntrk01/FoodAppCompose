@@ -7,6 +7,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -18,7 +20,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -27,7 +32,6 @@ import com.example.foodappwithcompose.ui.theme.FoodAppWithComposeTheme
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -53,7 +57,7 @@ class MainActivity : ComponentActivity() {
                 bottomBarState.value = true
             }
 
-            ScreenState.CategorySearchItem.route -> {
+            ScreenState.SearchBottomItem.route -> {
                 bottomBarState.value = true
             }
 
@@ -83,7 +87,14 @@ class MainActivity : ComponentActivity() {
             exit = slideOutVertically(targetOffsetY = { it }),
             content = {
                 //Bottom bar default mor olan ile geliyor zaten kütüphanesini de ekledim var gradleda
-                BottomAppBar {
+                BottomAppBar (
+                    //Bottombara sağ ve sol üst radius verdik
+                    //Navigation barın colorunu ayarlıyor
+                    //containerColor = MaterialTheme.colorScheme.primary,
+                    //Icon ve Yazı arasında boşluk veriyor
+                    contentPadding = PaddingValues(horizontal = 20.dp),
+                    modifier = Modifier.clip(RoundedCornerShape(topStart = 24.dp, topEnd = 24.dp))
+                ){
                     val navBackStackEntry by navController.currentBackStackEntryAsState()
                     val currentRoute = navBackStackEntry?.destination?.route
 
