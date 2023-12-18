@@ -30,7 +30,7 @@ fun HomeSuccessComponent(
     navHostController: NavHostController
 ) {
     Column(
-        modifier = Modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize(),
     ) {
         AppBar(isVisible = false,text = "Home",color=Color.Black)
 

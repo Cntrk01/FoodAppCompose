@@ -3,6 +3,7 @@ package com.example.foodappwithcompose.customlayouts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
@@ -24,7 +25,7 @@ fun SingleMealLayout(
     navHostController: NavHostController
 ) {
     Column(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier.fillMaxWidth().height(250.dp)
     ) {
         Card(
             modifier = Modifier

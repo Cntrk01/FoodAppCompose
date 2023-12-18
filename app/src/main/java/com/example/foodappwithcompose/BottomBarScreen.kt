@@ -16,7 +16,7 @@ sealed class BottomBarScreen(
         icon = R.drawable.baseline_category_24
     )
     object Search : BottomBarScreen(
-        route = ScreenState.CategorySearchItem.route,
+        route = ScreenState.SearchBottomItem.route,
         title = "Search",
         icon = R.drawable.baseline_search_24
     )
