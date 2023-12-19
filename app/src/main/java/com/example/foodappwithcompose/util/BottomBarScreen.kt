@@ -1,4 +1,6 @@
-package com.example.foodappwithcompose
+package com.example.foodappwithcompose.util
+
+import com.example.foodappwithcompose.R
 
 sealed class BottomBarScreen(
     val route:String,

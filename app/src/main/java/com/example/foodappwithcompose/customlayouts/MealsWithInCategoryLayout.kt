@@ -16,18 +16,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.foodappwithcompose.ScreenState
+import com.example.foodappwithcompose.util.ScreenState
 import com.example.foodappwithcompose.model.Meals
 import com.example.foodappwithcompose.model.MealsResponse
 
+//Categori altındaki mealları listelediğim sayfa
 @Composable
-fun FoodCategoriesLayout(
+fun MealsWithInCategoryLayout(
     mealsResponse: MealsResponse,
     navHostController: NavHostController,
     categoryName: String
 ) {
     Column {
-        AppBar(isVisible = true,text = categoryName, color = Color.Black){
+        AppBar(isVisible = true, text = categoryName, color = Color.Black) {
             navHostController.popBackStack()
         }
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
@@ -42,8 +43,8 @@ fun FoodCategoriesLayout(
 @Composable
 fun MealItemDesign(
     meals: Meals,
-    navHostController: NavHostController) {
-
+    navHostController: NavHostController
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

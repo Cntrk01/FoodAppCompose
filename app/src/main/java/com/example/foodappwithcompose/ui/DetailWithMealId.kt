@@ -12,20 +12,21 @@ import com.example.foodappwithcompose.state.DetailState
 import com.example.foodappwithcompose.viewmodel.MealDetailWithIdViewModel
 
 @Composable
-fun DetailWithMealId(navHostController: NavHostController){
-    val detailViewModel : MealDetailWithIdViewModel = viewModel()
+fun DetailWithMealId(navHostController: NavHostController) {
+    val detailViewModel: MealDetailWithIdViewModel = viewModel()
     val state by detailViewModel.state
-    val context= LocalContext.current
-    when(state){
-        is DetailState.Loading-> LoadingComponent()
-        is DetailState.Error->{
+    val context = LocalContext.current
+    when (state) {
+        is DetailState.Loading -> LoadingComponent()
+        is DetailState.Error -> {
             val message = (state as DetailState.Error).error
-            ErrorComponent(message,onRefreshClicked ={
+            ErrorComponent(message, onRefreshClicked = {
                 detailViewModel.tryToGetMealDetail()
             })
         }
-        is DetailState.Success->{
-            val data= (state as DetailState.Success).mealDetail
+
+        is DetailState.Success -> {
+            val data = (state as DetailState.Success).mealDetail
             data.meals.map {
                 MealDetailLayout(
                     appBarText = it.strMeal.toString(),
@@ -35,7 +36,7 @@ fun DetailWithMealId(navHostController: NavHostController){
                     mealCategory = it.strCategory.toString(),
                     mealDescription = it.strInstructions.toString(),
                     mealYtUrl = it.strYoutube,
-                    context =context,
+                    context = context,
                     navHostController = navHostController
                 )
             }

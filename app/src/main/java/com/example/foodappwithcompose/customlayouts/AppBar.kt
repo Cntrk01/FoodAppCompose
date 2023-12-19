@@ -22,11 +22,13 @@ import androidx.compose.ui.unit.sp
 import com.example.foodappwithcompose.R
 
 @Composable
-fun AppBar(isVisible:Boolean,text:String,color: Color,backClick : ((Unit)->Unit) ?=null){
+fun AppBar(isVisible: Boolean, text: String, color: Color, backClick: ((Unit) -> Unit)? = null) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start,
-        modifier = Modifier.height(60.dp).padding(start = 5.dp)
+        modifier = Modifier
+            .height(60.dp)
+            .padding(start = 5.dp)
     ) {
 
         Image(
