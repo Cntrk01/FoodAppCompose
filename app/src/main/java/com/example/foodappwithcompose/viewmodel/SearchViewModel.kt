@@ -29,17 +29,14 @@ class SearchViewModel : ViewModel() {
         try {
             _state.value=SearchState.Success(data = MealApiClient.searchMeal(query = query))
         }
-        catch (e:NotFoundException){
-            _state.value = SearchState.Error(error = "Meal Not Found...")
-        }
         catch (e: ConnectException) {
-            _state.value = SearchState.Error(error = "Internet Connection Error: ${e.message}")
+            _state.value = SearchState.Error(error = "Internet Connection Error")
         } catch (e: SocketTimeoutException) {
-            _state.value = SearchState.Error(error = "Connect Timeout Error: ${e.message}")
+            _state.value = SearchState.Error(error = "Connect Timeout Error")
         } catch (e: ConnectTimeoutException) {
             _state.value = SearchState.Error(error = "Connect Timeout Error")
         } catch (e: Exception) {
-            _state.value = SearchState.Error(error = "Error")
+            _state.value = SearchState.Error(error = "Meal Not Found...")
         }
     }
 
@@ -48,11 +45,11 @@ class SearchViewModel : ViewModel() {
         try {
             _state.value = SearchState.Success(data = MealApiClient.getRandomMeal())
         } catch (e: Exception) {
-            _state.value = SearchState.Error(error = "Error")
+            _state.value = SearchState.Error(error = "Meal Not Found...")
         }catch (e: ConnectException) {
-            _state.value = SearchState.Error(error = "Internet Connection Error: ${e.message}")
+            _state.value = SearchState.Error(error = "Internet Connection Error")
         } catch (e: SocketTimeoutException) {
-            _state.value = SearchState.Error(error = "Connect Timeout Error: ${e.message}")
+            _state.value = SearchState.Error(error = "Connect Timeout Error")
         } catch (e: ConnectTimeoutException) {
             _state.value = SearchState.Error(error = "Connect Timeout Error")
         }
