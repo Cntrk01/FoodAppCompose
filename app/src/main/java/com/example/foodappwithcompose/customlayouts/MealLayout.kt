@@ -17,15 +17,15 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 
-//Kategoriye tıklanınca ikili gösterdiğim için GridMeal dedim
+//Yemek fotoğrafı ve isiminin olduğu fonksiyon
 @Composable
-fun MealLayout(mealImage:String, mealName:String){
+fun MealLayout(mealImage: String, mealName: String) {
     Box(modifier = Modifier.fillMaxSize()) {
         AsyncImage(
             model = mealImage,
             contentDescription = "meal",
             contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxSize()
         )
         Box(
             modifier = Modifier
@@ -33,7 +33,7 @@ fun MealLayout(mealImage:String, mealName:String){
                 .background(
                     Brush.verticalGradient(
                         colors = listOf(Color.Transparent, Color.Black),
-                        startY = 400f
+                        startY = 300f
                     )
                 )
         )

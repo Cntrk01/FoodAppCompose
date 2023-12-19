@@ -27,7 +27,9 @@ fun Search(navHostController: NavHostController) {
                 navHostController = navHostController,
                 queryErrorMsg = errorMessage,
                 searchMeal = {
-                    searchViewModel.processIntent(SearchIntent.Search(it))
+                    if (it.isNotBlank()){
+                        searchViewModel.processIntent(SearchIntent.Search(it))
+                    }
                 })
         }
 

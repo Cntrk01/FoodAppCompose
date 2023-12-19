@@ -7,7 +7,9 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -28,6 +30,9 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.foodappwithcompose.ui.theme.FoodAppWithComposeTheme
+import com.example.foodappwithcompose.util.BottomBarScreen
+import com.example.foodappwithcompose.util.ScreenState
+import com.example.foodappwithcompose.util.SetupNavGraph
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
@@ -74,8 +79,10 @@ class MainActivity : ComponentActivity() {
             bottomBar = {
                 BottomBar(navController = navController, bottomBarState = bottomBarState)
             },
-            content = {
-                SetupNavGraph(navHostController = navController)
+            content = { paddingValues ->
+                Box(modifier = Modifier.padding(paddingValues)){
+                    SetupNavGraph(navHostController = navController)
+                }
             })
     }
 

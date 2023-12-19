@@ -33,9 +33,9 @@ import com.example.foodappwithcompose.model.MealDetailResponse
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchComponent(
-    mealDetailResponse: MealDetailResponse? =null,
+    mealDetailResponse: MealDetailResponse? = null,
     navHostController: NavHostController,
-    queryErrorMsg : String ?=null,
+    queryErrorMsg: String? = null,
     searchMeal: ((String) -> Unit)? = null,
 ) {
     var query by remember { mutableStateOf("") }
@@ -79,21 +79,20 @@ fun SearchComponent(
                 }
             }
         )
-        if (queryErrorMsg?.isNotBlank() == true){
-                if(queryErrorMsg=="Meal Not Found..."){
-                    Text(
-                        text = queryErrorMsg,
-                        color = MaterialTheme.colorScheme.error,
-                        style = MaterialTheme.typography.labelSmall,
-                        modifier = Modifier.padding(start = 16.dp)
-                    )
-                }else{
-                    ErrorComponent(errorMessage = queryErrorMsg) {
-                        searchMeal?.invoke(query)
-                    }
+        if (queryErrorMsg?.isNotBlank() == true) {
+            if (queryErrorMsg == "Meal Not Found...") {
+                Text(
+                    text = queryErrorMsg,
+                    color = MaterialTheme.colorScheme.error,
+                    style = MaterialTheme.typography.labelSmall,
+                    modifier = Modifier.padding(start = 16.dp)
+                )
+            } else {
+                ErrorComponent(errorMessage = queryErrorMsg) {
+                    searchMeal?.invoke(query)
                 }
             }
-
+        }
         if (errorMessage.isNotBlank()) {
             Text(
                 text = errorMessage,
@@ -109,6 +108,5 @@ fun SearchComponent(
                 navHostController = navHostController
             )
         }
-
     }
 }
