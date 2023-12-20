@@ -73,6 +73,8 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
     implementation ("androidx.navigation:navigation-compose:2.6.0-rc01")
+    //bu MainActivity içerisinde BottomNavigation yazmamı sağladı
+    implementation ("androidx.compose.material:material:1.4.2")
 
     implementation("io.ktor:ktor-client-cio-jvm:2.3.2")
     implementation("io.ktor:ktor-client-content-negotiation:2.3.2")
