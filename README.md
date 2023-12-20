@@ -8,11 +8,30 @@ Intentler içerisinde kullanıcının ekranla etkileşimi olduğu durumları ekl
 
 
 Projede :
+
+
+
 -MVI,
+
+
+
 -Ktor,
+
+
+
 -Bottom Navigation,
+
+
+
 -Navigation,
+
+
+
 -Arguments,
+
+
+
+
 -SavedStateHandle,
 
 
