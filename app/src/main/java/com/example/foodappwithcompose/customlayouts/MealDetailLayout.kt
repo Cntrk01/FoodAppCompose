@@ -45,7 +45,7 @@ fun MealDetailLayout(
     mealDescription:String,
     mealYtUrl:String,
     context:Context,
-    navHostController: NavHostController
+    backClick: ((Unit) -> Unit)? = null
 ){
     Column(
         modifier = Modifier
@@ -53,7 +53,7 @@ fun MealDetailLayout(
             .padding(10.dp)
     ) {
         AppBar(isVisible = true,text = appBarText, Color.Black){
-            navHostController.popBackStack()
+            backClick?.invoke(Unit)
         }
         Box (modifier = Modifier
             .fillMaxWidth()

@@ -16,17 +16,25 @@ import com.example.foodappwithcompose.model.CategoryResponse
 
 //Home.kt içerisinde yatay olarak listeleniyor.Bottomnavdan gidince dikey olarak kategoriler listeleniyor
 @Composable
-fun CategoryListLayout(listAlignment:String,categoryResponse: CategoryResponse,navHostController:NavHostController){
-    if (listAlignment == "Horizontal"){
+fun CategoryListLayout(
+    listAlignment: String,
+    categoryResponse: CategoryResponse,
+    onClickItemString: ((String, String) -> Unit)? = null
+) {
+    if (listAlignment == "Horizontal") {
         LazyRow(
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             modifier = Modifier.fillMaxSize()
         ) {
             items(categoryResponse.categories) {
-                CategoryComponent(categoriesItem = it, navHostController = navHostController)
+                CategoryComponent(
+                    categoriesItem = it,
+                    onClickItemString = { route, arguments ->
+                        onClickItemString?.invoke(route, arguments)
+                    })
             }
         }
-    }else if (listAlignment=="Vertical"){
+    } else if (listAlignment == "Vertical") {
         Column {
             AppBar(isVisible = false, text = "Category", color = Color.Black)
             LazyColumn(
@@ -34,7 +42,11 @@ fun CategoryListLayout(listAlignment:String,categoryResponse: CategoryResponse,n
                 modifier = Modifier.fillMaxSize()
             ) {
                 items(categoryResponse.categories) {
-                    CategoryComponent(categoriesItem = it, navHostController = navHostController)
+                    CategoryComponent(
+                        categoriesItem = it,
+                        onClickItemString = { route, arguments ->
+                            onClickItemString?.invoke(route, arguments)
+                        })
                 }
             }
         }

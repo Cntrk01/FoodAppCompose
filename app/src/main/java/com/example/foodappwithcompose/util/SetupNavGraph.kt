@@ -19,22 +19,45 @@ fun SetupNavGraph(navHostController: NavHostController) {
         startDestination = ScreenState.HomeBottomItem.route
     ) {
         composable(route = ScreenState.HomeBottomItem.route) {
-            Home(navHostController = navHostController)
+            Home(navHostController = navHostController, onClickItemString = { route, arguments ->
+                if (route == ScreenState.Detail.route) {
+                    navHostController.navigate(route = route)
+                }
+                if (route == ScreenState.Category.route) {
+                    navHostController.navigate(route = route + "/${arguments}")
+                }
+            })
         }
         composable(route = ScreenState.Detail.route) {
             navHostController.previousBackStackEntry?.savedStateHandle?.get<MealDetail>("mealDetailData")
-            DetailPage(navController = navHostController)
+            DetailPage(
+                navController = navHostController,
+                backClick = {
+                    navHostController.popBackStack()
+            })
         }
         composable(route = ScreenState.Category.route + "/{categoryName}") {
 //          val categoryId=it.arguments?.getString("categoryId").toString()
 //          bu id ile geliyor fakat ben viewmodelinin içinde SavedStateHandle ile taşınan idyi alıp init içerisinde çalıştırarak dataları fetch ettim
-            MealsWithInCategory(navHostController = navHostController)
+            MealsWithInCategory(
+                backClick = {
+                    navHostController.popBackStack()
+                },
+                itemDetailClick = { route, arguments ->
+                    navHostController.navigate(route = route + "/${arguments}")
+                })
         }
         composable(route = ScreenState.CategoryItemDetail.route + "/{mealId}") {
-            DetailWithMealId(navHostController = navHostController)
+            DetailWithMealId(backClick = {
+                navHostController.popBackStack()
+            })
         }
         composable(route = ScreenState.CategoryBottomItem.route) {
-            Category(navHostController = navHostController)
+            Category(onItemClickCategory = { route, arguments ->
+                if (route == ScreenState.Category.route) {
+                    navHostController.navigate(route = route + "/${arguments}")
+                }
+            })
         }
         composable(route = ScreenState.SearchBottomItem.route) {
             Search(navHostController = navHostController)
