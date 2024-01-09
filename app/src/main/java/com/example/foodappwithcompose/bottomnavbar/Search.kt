@@ -14,7 +14,9 @@ import com.example.foodappwithcompose.state.SearchState
 import com.example.foodappwithcompose.viewmodel.SearchViewModel
 
 @Composable
-fun Search(navHostController: NavHostController) {
+fun Search(
+    navHostController: NavHostController,
+    onItemClickNavigate : ((String)->Unit)?=null) {
     val searchViewModel: SearchViewModel = viewModel()
     val state by searchViewModel.state
     val checkBoolean = rememberSaveable { (mutableStateOf(true)) }
@@ -41,6 +43,9 @@ fun Search(navHostController: NavHostController) {
                 navHostController = navHostController,
                 searchMeal = {
                     searchViewModel.processIntent(SearchIntent.Search(it))
+                },
+                onItemClickNavigate={
+                    onItemClickNavigate?.invoke(it)
                 })
         }
     }
