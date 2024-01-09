@@ -37,6 +37,7 @@ fun SearchComponent(
     navHostController: NavHostController,
     queryErrorMsg: String? = null,
     searchMeal: ((String) -> Unit)? = null,
+    onItemClickNavigate : ((String)->Unit)?=null
 ) {
     var query by remember { mutableStateOf("") }
     var errorMessage by remember { mutableStateOf("") }
@@ -105,7 +106,10 @@ fun SearchComponent(
             SingleMealLayout(
                 meals = it,
                 modifier = Modifier,
-                navHostController = navHostController
+                navHostController = navHostController,
+                onItemClickNavigate = {navigate->
+                    onItemClickNavigate?.invoke(navigate)
+                }
             )
         }
     }

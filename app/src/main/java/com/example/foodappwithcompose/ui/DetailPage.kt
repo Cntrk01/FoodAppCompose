@@ -32,8 +32,9 @@ fun DetailPage(
             mealDescription = it.strInstructions.toString(),
             mealYtUrl = it.strYoutube,
             context = context,
-        ) {
-            backClick?.invoke(Unit)
-        }
+            backClick = {
+                backClick?.invoke(Unit)
+            }
+        )
     }
 }

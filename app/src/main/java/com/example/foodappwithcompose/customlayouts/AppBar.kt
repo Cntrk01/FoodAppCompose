@@ -31,7 +31,7 @@ fun AppBar(isVisible: Boolean, text: String, color: Color, backClick: ((Unit) ->
         Image(
             painter = painterResource(id = R.drawable.baseline_arrow_back_24),
             contentDescription = null,
-            modifier = Modifier
+            modifier = Modifier.padding(start = 5.dp)
                 .size(if (isVisible) 24.dp else 0.dp)
                 .clickable {
                     backClick?.invoke(Unit)
@@ -42,7 +42,8 @@ fun AppBar(isVisible: Boolean, text: String, color: Color, backClick: ((Unit) ->
             fontSize = 24.sp,
             color = color,
             fontWeight = FontWeight.Bold,
-            modifier = Modifier.padding(start = 15.dp)
+            modifier = Modifier.padding(start = 15.dp),
+            maxLines = 1
         )
     }
 }

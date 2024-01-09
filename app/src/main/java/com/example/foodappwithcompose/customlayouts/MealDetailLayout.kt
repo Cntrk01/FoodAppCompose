@@ -50,12 +50,12 @@ fun MealDetailLayout(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
     ) {
-        AppBar(isVisible = true,text = appBarText, Color.Black){
+        AppBar(isVisible = true,text = appBarText, Color.Black, backClick = {
             backClick?.invoke(Unit)
-        }
+        })
         Box (modifier = Modifier
+            .padding(10.dp)
             .fillMaxWidth()
             .height(250.dp)
             .clip(RoundedCornerShape(8.dp))){
@@ -63,7 +63,7 @@ fun MealDetailLayout(
         }
 
         Row(
-            modifier = Modifier.padding(top = 10.dp),
+            modifier = Modifier.padding(10.dp),
         ) {
             Image(
                 painter = painterResource(id = R.drawable.baseline_location_on_24),

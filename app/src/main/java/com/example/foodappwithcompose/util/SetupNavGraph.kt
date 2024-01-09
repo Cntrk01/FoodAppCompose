@@ -62,7 +62,11 @@ fun SetupNavGraph(navHostController: NavHostController) {
             })
         }
         composable(route = ScreenState.SearchBottomItem.route) {
-            Search(navHostController = navHostController)
+            Search(
+                navHostController = navHostController,
+                onItemClickNavigate = {
+                    navHostController.navigate(route = it)
+                })
         }
     }
 }
