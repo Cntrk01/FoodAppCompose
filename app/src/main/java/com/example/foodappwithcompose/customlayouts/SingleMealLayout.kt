@@ -21,7 +21,8 @@ import com.example.foodappwithcompose.model.MealDetail
 fun SingleMealLayout(
     meals: List<MealDetail>,
     modifier: Modifier,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    onClickItemString : ((String)->Unit)?=null
 ) {
     Column(
         modifier = modifier.fillMaxWidth().height(250.dp)
@@ -37,7 +38,8 @@ fun SingleMealLayout(
                 meals.map {
                     navHostController.currentBackStackEntry?.savedStateHandle?.set("mealDetailData", it)
                 }
-                navHostController.navigate(ScreenState.Detail.route)
+                onClickItemString?.invoke(ScreenState.Detail.route)
+                //navHostController.navigate(ScreenState.Detail.route)
             }
         ) {
             if (meals.isNotEmpty()) {

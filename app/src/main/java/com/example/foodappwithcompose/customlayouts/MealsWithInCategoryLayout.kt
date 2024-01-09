@@ -24,16 +24,20 @@ import com.example.foodappwithcompose.model.MealsResponse
 @Composable
 fun MealsWithInCategoryLayout(
     mealsResponse: MealsResponse,
-    navHostController: NavHostController,
-    categoryName: String
+    categoryName: String,
+    backClick: ((Unit) -> Unit)? = null,
+    itemDetailClick: ((String, String) -> Unit)? = null
 ) {
     Column {
         AppBar(isVisible = true, text = categoryName, color = Color.Black) {
-            navHostController.popBackStack()
+            backClick?.invoke(Unit)
+            //navHostController.popBackStack()
         }
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
             items(mealsResponse.meals) {
-                MealItemDesign(meals = it, navHostController = navHostController)
+                MealItemDesign(meals = it, itemDetailClick = { route, arguments ->
+                    itemDetailClick?.invoke(route, arguments)
+                })
             }
         }
     }
@@ -43,7 +47,7 @@ fun MealsWithInCategoryLayout(
 @Composable
 fun MealItemDesign(
     meals: Meals,
-    navHostController: NavHostController
+    itemDetailClick: ((String, String) -> Unit)? = null
 ) {
     Card(
         modifier = Modifier
@@ -53,7 +57,7 @@ fun MealItemDesign(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         onClick = {
-            navHostController.navigate(route = ScreenState.CategoryItemDetail.route + "/${meals.idMeal}")
+            itemDetailClick?.invoke(ScreenState.CategoryItemDetail.route, meals.idMeal)
         })
     {
         MealLayout(mealImage = meals.strMealThumb, mealName = meals.strMeal)

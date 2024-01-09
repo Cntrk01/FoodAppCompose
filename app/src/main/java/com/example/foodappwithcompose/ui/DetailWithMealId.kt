@@ -12,7 +12,7 @@ import com.example.foodappwithcompose.state.DetailState
 import com.example.foodappwithcompose.viewmodel.MealDetailWithIdViewModel
 
 @Composable
-fun DetailWithMealId(navHostController: NavHostController) {
+fun DetailWithMealId(backClick: ((Unit) -> Unit)? = null) {
     val detailViewModel: MealDetailWithIdViewModel = viewModel()
     val state by detailViewModel.state
     val context = LocalContext.current
@@ -37,7 +37,9 @@ fun DetailWithMealId(navHostController: NavHostController) {
                     mealDescription = it.strInstructions.toString(),
                     mealYtUrl = it.strYoutube,
                     context = context,
-                    navHostController = navHostController
+                    backClick = {
+                        backClick?.invoke(Unit)
+                    }
                 )
             }
         }

@@ -11,7 +11,7 @@ import com.example.foodappwithcompose.state.CategoryState
 import com.example.foodappwithcompose.viewmodel.CategoryListViewModel
 
 @Composable
-fun Category(navHostController: NavHostController) {
+fun Category(onItemClickCategory : ((String,String)->Unit )?=null) {
     val categoryListViewModel: CategoryListViewModel = viewModel()
     val state by categoryListViewModel.state
 
@@ -23,13 +23,14 @@ fun Category(navHostController: NavHostController) {
                 categoryListViewModel.tryToGetCategory()
             }
         }
-
         else -> {
             val data = (state as CategoryState.Success).categoryList
             CategoryListLayout(
                 listAlignment = "Vertical",
                 categoryResponse = data,
-                navHostController = navHostController
+                onClickItemString = { route,arguments->
+                    onItemClickCategory?.invoke(route,arguments)
+                }
             )
         }
     }

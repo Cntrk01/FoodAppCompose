@@ -10,8 +10,12 @@ import com.example.foodappwithcompose.model.MealDetail
 
 @SuppressLint("QueryPermissionsNeeded")
 @Composable
-fun DetailPage(navController: NavHostController) {
-    val mealDetail = navController.previousBackStackEntry?.savedStateHandle?.get<MealDetail>("mealDetailData")
+fun DetailPage(
+    navController: NavHostController,
+    backClick: ((Unit) -> Unit)? = null
+) {
+    val mealDetail =
+        navController.previousBackStackEntry?.savedStateHandle?.get<MealDetail>("mealDetailData")
     val context = LocalContext.current
     mealDetail?.let {
         val trimmedText = if (it.strMeal.toString().length > 10) {
@@ -28,7 +32,8 @@ fun DetailPage(navController: NavHostController) {
             mealDescription = it.strInstructions.toString(),
             mealYtUrl = it.strYoutube,
             context = context,
-            navHostController = navController
-        )
+        ) {
+            backClick?.invoke(Unit)
+        }
     }
 }

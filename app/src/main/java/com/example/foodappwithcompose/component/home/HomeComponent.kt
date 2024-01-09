@@ -21,7 +21,8 @@ fun HomeComponent(
     randomMeal: MealDetailResponse,
     searchMeal: MealDetailResponse,
     category: CategoryResponse,
-    navHostController: NavHostController
+    navHostController: NavHostController,
+    onClickItemString : ((String,String)->Unit)?=null
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -38,7 +39,9 @@ fun HomeComponent(
                 meals = randomMeal.meals,
                 modifier = Modifier,
                 navHostController = navHostController
-            )
+            ){
+                onClickItemString?.invoke(it,"")
+            }
         }
 
         Column(
@@ -51,7 +54,9 @@ fun HomeComponent(
                 meals = searchMeal.meals,
                 modifier = Modifier,
                 navHostController = navHostController
-            )
+            ){
+                onClickItemString?.invoke(it,"")
+            }
         }
         Column(
             modifier = Modifier
@@ -62,7 +67,9 @@ fun HomeComponent(
             CategoryListLayout(
                 listAlignment = "Horizontal",
                 categoryResponse = category,
-                navHostController = navHostController
+                onClickItemString = { route, arguments ->
+                    onClickItemString?.invoke(route,arguments)
+                }
             )
         }
     }
