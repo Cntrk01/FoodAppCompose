@@ -19,14 +19,16 @@ fun SetupNavGraph(navHostController: NavHostController) {
         startDestination = ScreenState.HomeBottomItem.route
     ) {
         composable(route = ScreenState.HomeBottomItem.route) {
-            Home(navHostController = navHostController, onClickItemString = { route, arguments ->
-                if (route == ScreenState.Detail.route) {
-                    navHostController.navigate(route = route)
-                }
-                if (route == ScreenState.Category.route) {
-                    navHostController.navigate(route = route + "/${arguments}")
-                }
-            })
+            Home(
+                navHostController = navHostController,
+                onItemClickNavigate = { route, arguments ->
+                    if (route == ScreenState.Detail.route) {
+                        navHostController.navigate(route = route)
+                    }
+                    if (route == ScreenState.Category.route) {
+                        navHostController.navigate(route = route + "/${arguments}")
+                    }
+                })
         }
         composable(route = ScreenState.Detail.route) {
             navHostController.previousBackStackEntry?.savedStateHandle?.get<MealDetail>("mealDetailData")
@@ -34,7 +36,7 @@ fun SetupNavGraph(navHostController: NavHostController) {
                 navController = navHostController,
                 backClick = {
                     navHostController.popBackStack()
-            })
+                })
         }
         composable(route = ScreenState.Category.route + "/{categoryName}") {
 //          val categoryId=it.arguments?.getString("categoryId").toString()

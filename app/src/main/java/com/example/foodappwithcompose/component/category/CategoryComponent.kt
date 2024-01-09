@@ -18,8 +18,8 @@ import com.example.foodappwithcompose.model.Category
 @Composable
 fun CategoryComponent(
     categoriesItem: Category,
-    onClickItemString : ((String,String)->Unit)?=null
-    ) {
+    onItemClickNavigate: ((String, String) -> Unit)? = null
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -28,7 +28,7 @@ fun CategoryComponent(
         shape = RoundedCornerShape(20.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
         onClick = {
-            onClickItemString?.invoke(ScreenState.Category.route,categoriesItem.strCategory)
+            onItemClickNavigate?.invoke(ScreenState.Category.route, categoriesItem.strCategory)
         })
     {
         MealLayout(

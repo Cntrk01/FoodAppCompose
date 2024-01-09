@@ -13,7 +13,10 @@ import com.example.foodappwithcompose.state.HomePageState
 import com.example.foodappwithcompose.viewmodel.HomePageViewModel
 
 @Composable
-fun Home(navHostController: NavHostController,onClickItemString : ((String,String)->Unit)?=null) {
+fun Home(
+    navHostController: NavHostController,
+    onItemClickNavigate: ((String, String) -> Unit)? = null
+) {
     val homePageViewModel: HomePageViewModel = viewModel()
     var firstTimeCheck = true
     val state by homePageViewModel.state
@@ -30,8 +33,8 @@ fun Home(navHostController: NavHostController,onClickItemString : ((String,Strin
                 searchMeal = searchMeal,
                 category = category,
                 navHostController = navHostController
-            ){route,arguments->
-                onClickItemString?.invoke(route,arguments)
+            ) { route, arguments ->
+                onItemClickNavigate?.invoke(route, arguments)
             }
         }
 
@@ -40,8 +43,8 @@ fun Home(navHostController: NavHostController,onClickItemString : ((String,Strin
             ErrorComponent(
                 errorMessage = message,
                 onRefreshClicked = {
-                homePageViewModel.processIntent(HomeIntent.Loading)
-            })
+                    homePageViewModel.processIntent(HomeIntent.Loading)
+                })
         }
     }
     if (firstTimeCheck) {
