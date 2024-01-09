@@ -12,7 +12,10 @@ import com.example.foodappwithcompose.viewmodel.CategoryPageViewModel
 
 //Kategoriye tıklandığı zaman bu sayfa çalışarak kategori isimine göre altındaki yemekleri listeliyor.
 @Composable
-fun MealsWithInCategory(navHostController: NavHostController) {
+fun MealsWithInCategory(
+    backClick: ((Unit) -> Unit)? = null,
+    itemDetailClick: ((String, String) -> Unit)? = null
+) {
     val viewModel: CategoryPageViewModel = viewModel()
 
     val state by viewModel.state
@@ -30,8 +33,13 @@ fun MealsWithInCategory(navHostController: NavHostController) {
             val categoryName = (state as CategoryMealItemState.Success).categoryName
             MealsWithInCategoryLayout(
                 mealsResponse = data,
-                navHostController = navHostController,
-                categoryName = categoryName
+                categoryName = categoryName,
+                backClick = {
+                    backClick?.invoke(Unit)
+                },
+                itemDetailClick = { route, arguments ->
+                    itemDetailClick?.invoke(route, arguments)
+                }
             )
         }
     }
