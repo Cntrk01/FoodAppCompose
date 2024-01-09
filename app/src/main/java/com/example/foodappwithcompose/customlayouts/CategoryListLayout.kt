@@ -10,7 +10,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.component.category.CategoryComponent
 import com.example.foodappwithcompose.model.CategoryResponse
 
@@ -19,7 +18,7 @@ import com.example.foodappwithcompose.model.CategoryResponse
 fun CategoryListLayout(
     listAlignment: String,
     categoryResponse: CategoryResponse,
-    onClickItemString: ((String, String) -> Unit)? = null
+    onItemClickNavigate: ((String, String) -> Unit)? = null
 ) {
     if (listAlignment == "Horizontal") {
         LazyRow(
@@ -29,8 +28,8 @@ fun CategoryListLayout(
             items(categoryResponse.categories) {
                 CategoryComponent(
                     categoriesItem = it,
-                    onClickItemString = { route, arguments ->
-                        onClickItemString?.invoke(route, arguments)
+                    onItemClickNavigate = { route, arguments ->
+                        onItemClickNavigate?.invoke(route, arguments)
                     })
             }
         }
@@ -44,8 +43,8 @@ fun CategoryListLayout(
                 items(categoryResponse.categories) {
                     CategoryComponent(
                         categoriesItem = it,
-                        onClickItemString = { route, arguments ->
-                            onClickItemString?.invoke(route, arguments)
+                        onItemClickNavigate = { route, arguments ->
+                            onItemClickNavigate?.invoke(route, arguments)
                         })
                 }
             }

@@ -22,7 +22,7 @@ fun SingleMealLayout(
     meals: List<MealDetail>,
     modifier: Modifier,
     navHostController: NavHostController,
-    onClickItemString : ((String)->Unit)?=null
+    onItemClickNavigate : ((String)->Unit)?=null
 ) {
     Column(
         modifier = modifier.fillMaxWidth().height(250.dp)
@@ -38,7 +38,7 @@ fun SingleMealLayout(
                 meals.map {
                     navHostController.currentBackStackEntry?.savedStateHandle?.set("mealDetailData", it)
                 }
-                onClickItemString?.invoke(ScreenState.Detail.route)
+                onItemClickNavigate?.invoke(ScreenState.Detail.route)
                 //navHostController.navigate(ScreenState.Detail.route)
             }
         ) {

@@ -3,7 +3,6 @@ package com.example.foodappwithcompose.bottomnavbar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavHostController
 import com.example.foodappwithcompose.component.ErrorComponent
 import com.example.foodappwithcompose.component.LoadingComponent
 import com.example.foodappwithcompose.customlayouts.CategoryListLayout
@@ -28,7 +27,7 @@ fun Category(onItemClickCategory : ((String,String)->Unit )?=null) {
             CategoryListLayout(
                 listAlignment = "Vertical",
                 categoryResponse = data,
-                onClickItemString = { route,arguments->
+                onItemClickNavigate = { route, arguments->
                     onItemClickCategory?.invoke(route,arguments)
                 }
             )
