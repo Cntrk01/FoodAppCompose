@@ -12,6 +12,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.key
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
@@ -34,11 +35,17 @@ fun MealsWithInCategoryLayout(
             //navHostController.popBackStack()
         }
         LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-            items(mealsResponse.meals) {
-                MealItemDesign(meals = it, itemDetailClick = { route, arguments ->
-                    itemDetailClick?.invoke(route, arguments)
-                })
-            }
+            items(
+                count = mealsResponse.meals.size,
+                key ={
+                    mealsResponse.meals[it].idMeal
+                },
+                itemContent = {
+                    MealItemDesign(meals = mealsResponse.meals[it], itemDetailClick = { route, arguments ->
+                        itemDetailClick?.invoke(route, arguments)
+                    })
+                }
+            )
         }
     }
 }

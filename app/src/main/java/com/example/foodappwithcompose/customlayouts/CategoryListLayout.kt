@@ -40,14 +40,19 @@ fun CategoryListLayout(
                 verticalArrangement = Arrangement.Top,
                 modifier = Modifier.fillMaxSize()
             ) {
-                items(categoryResponse.categories) {
-                    CategoryComponent(
-                        categoriesItem = it,
-                        onItemClickNavigate = { route, arguments ->
-                            onItemClickNavigate?.invoke(route, arguments)
-                        })
+                items(
+                    count=categoryResponse.categories.size,
+                    key={
+                        categoryResponse.categories[it].idCategory
+                    },
+                    itemContent={
+                        CategoryComponent(
+                            categoriesItem = categoryResponse.categories[it],
+                            onItemClickNavigate = { route, arguments ->
+                                onItemClickNavigate?.invoke(route, arguments)
+                            })
+                    })
                 }
             }
         }
-    }
 }
