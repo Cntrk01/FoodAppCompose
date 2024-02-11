@@ -80,7 +80,7 @@ class MainActivity : ComponentActivity() {
                 BottomBar(navController = navController, bottomBarState = bottomBarState)
             },
             content = { paddingValues ->
-                Box(modifier = Modifier.padding(paddingValues)){
+                Box{
                     SetupNavGraph(navHostController = navController)
                 }
             })
